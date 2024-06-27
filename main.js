@@ -18,7 +18,7 @@ async function login() {
   log("Attempting login...");
   try {
     await client.login(process.env.TOKEN);
-    
+
     log("🤖 Logged in");
   } catch (e) {
     log("🫤 Failed to login, error:", e);
@@ -27,7 +27,7 @@ async function login() {
 
 async function getPrice() {
   try {
-    const raw = await fetch("https://api.coinbase.com/v2/prices/sol-usd/spot");
+    const raw = await fetch("https://api.coinbase.com/v2/prices/sol-gbp/spot");
     const { data } = await raw.json();
     return Math.round(+data.amount * 100) / 100;
   } catch (e) {
@@ -40,7 +40,7 @@ async function setBotActivity() {
   const price = await getPrice();
   if (!price) return;
 
-  const ClientPresence = await client.user.setActivity(`$${price}`, {
+  const ClientPresence = await client.user.setActivity(`£${price}`, {
     type: Discord.ActivityType.Watching,
   });
 
